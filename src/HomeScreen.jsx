@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Briefcase, Gift } from 'lucide-react'
+import { Briefcase, Gift, Globe, ChevronDown, ChevronUp } from 'lucide-react'
 import LiveStream    from './LiveStream'
 import GoldCoin      from './GoldCoin'
 import LanguageFilter from './LanguageFilter'
@@ -59,31 +59,54 @@ function SpinWheelCard({ onWin }) {
       <div className="spin-area">
         <div className="spin-pointer">▼</div>
         <svg
-          width={r * 2 + 20} height={r * 2 + 20}
-          viewBox={`0 0 ${r*2+20} ${r*2+20}`}
-          style={{ transform: `rotate(${angle}deg)`, transition: spinning ? 'transform 3.2s cubic-bezier(0.2,0,0.1,1)' : 'none' }}
+          width={r * 2 + 40} height={r * 2 + 40}
+          viewBox={`0 0 ${r*2+40} ${r*2+40}`}
+          style={{ transform: `rotate(${angle}deg)`, transition: spinning ? 'transform 3.2s cubic-bezier(0.2,0,0.1,1)' : 'none', filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.5))' }}
         >
-          {PRIZES.map((p, i) => {
-            const a1 = (i * seg - 90) * (Math.PI / 180)
-            const a2 = ((i + 1) * seg - 90) * (Math.PI / 180)
-            const x1 = r + 10 + r * Math.cos(a1)
-            const y1 = r + 10 + r * Math.sin(a1)
-            const x2 = r + 10 + r * Math.cos(a2)
-            const y2 = r + 10 + r * Math.sin(a2)
-            const mid = (a1 + a2) / 2
-            return (
-              <g key={i}>
-                <path d={`M${r+10},${r+10} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i]} />
-                <text
-                  x={r + 10 + (r * 0.65) * Math.cos(mid)}
-                  y={r + 10 + (r * 0.65) * Math.sin(mid)}
-                  textAnchor="middle" dominantBaseline="middle"
-                  fontSize="8" fill="white" fontWeight="700"
-                >{p.split(' ')[0]}</text>
-              </g>
-            )
-          })}
-          <circle cx={r+10} cy={r+10} r="10" fill="#2D1B69" />
+          <defs>
+            <radialGradient id="wheel-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="80%" stopColor="transparent" />
+              <stop offset="100%" stopColor="rgba(0,0,0,0.6)" />
+            </radialGradient>
+            <linearGradient id="center-pin" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#fde68a" />
+              <stop offset="50%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor="#b45309" />
+            </linearGradient>
+            <filter id="inner-shadow">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.6" />
+            </filter>
+          </defs>
+          <g transform="translate(20,20)">
+            {PRIZES.map((p, i) => {
+              const a1 = (i * seg - 90) * (Math.PI / 180)
+              const a2 = ((i + 1) * seg - 90) * (Math.PI / 180)
+              const x1 = r + r * Math.cos(a1)
+              const y1 = r + r * Math.sin(a1)
+              const x2 = r + r * Math.cos(a2)
+              const y2 = r + r * Math.sin(a2)
+              const mid = (a1 + a2) / 2
+              const textX = r + (r * 0.65) * Math.cos(mid)
+              const textY = r + (r * 0.65) * Math.sin(mid)
+              const textRot = (mid * 180 / Math.PI) + 90
+              return (
+                <g key={i}>
+                  <path d={`M${r},${r} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i]} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                  <text
+                    x={textX}
+                    y={textY}
+                    textAnchor="middle" dominantBaseline="middle"
+                    fontSize="11" fill="white" fontWeight="800"
+                    style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)', transform: `rotate(${textRot > 90 && textRot < 270 ? textRot + 180 : textRot}deg)`, transformOrigin: `${textX}px ${textY}px` }}
+                  >{p.split(' ')[0]}</text>
+                </g>
+              )
+            })}
+            <circle cx={r} cy={r} r={r} fill="url(#wheel-glow)" pointerEvents="none" />
+            <circle cx={r} cy={r} r={r} fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="4" />
+            <circle cx={r} cy={r} r="18" fill="url(#center-pin)" filter="url(#inner-shadow)" />
+            <circle cx={r} cy={r} r="6" fill="#78350f" />
+          </g>
         </svg>
         {result && (
           <div className="spin-result">
@@ -131,8 +154,8 @@ function FilterRow({ coins, addCoins }) {
   return (
     <div className="filter-row-wrap">
       <button className="filter-row-btn" style={{ borderRadius: open ? '16px 16px 0 0' : '16px', borderBottom: open ? 'none' : '1px solid var(--border-dark)' }} onClick={() => setOpen(o => !o)}>
-        <span>🌐 Find listeners in your language & city</span>
-        <span className="filter-arrow">{open ? '▲' : '▼'}</span>
+        <span style={{ display: 'flex', alignItems: 'center' }}><Globe size={16} style={{ marginRight: 6, color: '#7C3AED' }} /> Find listeners in your language & city</span>
+        <span className="filter-arrow">{open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}</span>
       </button>
       {open && (
         <div className="filter-inline">
