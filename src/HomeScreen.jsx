@@ -182,7 +182,8 @@ function FilterRow({ coins, addCoins }) {
 }
 
 // ── HomeScreen ──────────────────────────────────────────────────────────────
-export default function HomeScreen({ view, setView, coins, addCoins }) {
+export default function HomeScreen({ coins, addCoins }) {
+  const [view, setView] = useState('home')
   const [open, setOpen] = useState(false)
   const [streak, setStreak] = useState(0)
   const [checkedIn, setCheckedIn] = useState(false)
