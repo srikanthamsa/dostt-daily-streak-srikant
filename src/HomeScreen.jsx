@@ -286,8 +286,16 @@ export default function HomeScreen({ coins, addCoins }) {
                 ))}
               </div>
               <div className="featured-ctas">
-                <button className="fcta-btn fcta-audio call-pill"><span><GoldCoin size={12} style={{ display: 'inline', position: 'relative', top: '1px' }} /></span> 1/min <span><img src="/phone.png" style={{ width: '16px', height: '16px', objectFit: 'contain' }} alt="Call" /></span></button>
-                <button className="fcta-btn fcta-video call-pill"><span><GoldCoin size={12} style={{ display: 'inline', position: 'relative', top: '1px' }} /></span> 6/min <span><img src="/zoom.png" style={{ width: '16px', height: '16px', objectFit: 'contain' }} alt="Video" /></span></button>
+                <button className="fcta-btn fcta-audio call-pill" onClick={() => handleCall('audio', l)}>
+                  <span style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-1px)' }}><GoldCoin size={14} /></span>
+                  <span style={{ margin: '0 2px', display: 'flex', alignItems: 'center' }}>1/min</span>
+                  <span style={{ display: 'flex', alignItems: 'center', marginLeft: '2px', transform: 'translateY(1px)' }}><img src="/phone.png" style={{ width: '24px', height: '24px', objectFit: 'contain' }} alt="Call" /></span>
+                </button>
+                <button className="fcta-btn fcta-video call-pill" onClick={() => handleCall('video', l)}>
+                  <span style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-1px)' }}><GoldCoin size={14} /></span>
+                  <span style={{ margin: '0 2px', display: 'flex', alignItems: 'center' }}>6/min</span>
+                  <span style={{ display: 'flex', alignItems: 'center', marginLeft: '2px', transform: 'translateY(1px)' }}><img src="/zoom.png" style={{ width: '24px', height: '24px', objectFit: 'contain' }} alt="Video" /></span>
+                </button>
               </div>
             </div>
           </div>
