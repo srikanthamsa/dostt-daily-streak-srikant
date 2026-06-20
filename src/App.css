@@ -108,13 +108,25 @@ h3   { font-size: 15px; font-weight: 600; color: white; }
 /* Feature grid */
 .feature-grid  { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 .quick-cards   { display: flex; gap: 10px; }
-.quick-card    { flex: 1; border-radius: 16px; padding: 14px 16px 14px 14px; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; overflow: hidden; position: relative; }
-.qc-text       { display: flex; flex-direction: column; gap: 4px; min-width: 0; z-index: 1; position: relative; }
-.qc-live       { background: linear-gradient(135deg,#1a0a3c,#3b1a8c); border: 1px solid rgba(124,58,237,0.4); }
-.qc-streak     { background: linear-gradient(135deg,#3d1c00,#8c4500); border: 1px solid rgba(249,115,22,0.4); }
-.qc-icon       { flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
-.qc-label      { font-size: 13px; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.qc-sub        { font-size: 11px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.quick-card    { flex: 1; border-radius: 20px; padding: 16px; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; overflow: hidden; position: relative; }
+.qc-text       { display: flex; flex-direction: column; gap: 4px; min-width: 0; z-index: 2; position: relative; }
+
+.qc-live       { background: linear-gradient(135deg, #2e1065, #4c1d95); border: 1px solid rgba(139, 92, 246, 0.4); box-shadow: 0 4px 12px rgba(76, 29, 149, 0.3); }
+.qc-live::after { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 80% 20%, rgba(139,92,246,0.4), transparent 50%); pointer-events: none; }
+
+.qc-streak     { background: linear-gradient(135deg, #78350f, #b45309); border: 1px solid rgba(245, 158, 11, 0.4); box-shadow: 0 4px 12px rgba(180, 83, 9, 0.3); }
+.qc-streak::after { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 80% 20%, rgba(245,158,11,0.4), transparent 50%); pointer-events: none; }
+
+.qc-icon { transition: transform 0.2s; }
+.qc-icon:active { transform: translateY(-50%) scale(0.9) !important; }
+.qc-label      { font-size: 14px; font-weight: 800; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.2px; }
+.qc-sub        { font-size: 12px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Streak Modal */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 999; animation: fadeIn 0.2s ease; }
+.streak-modal { background: linear-gradient(145deg, #1e1b4b, #312e81); border: 1px solid rgba(139,92,246,0.3); padding: 24px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; z-index: 1000; width: 85%; max-width: 320px; animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalPop { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 /* Spin wheel card */
 .spin-card { background: linear-gradient(145deg, #1e1b4b, #312e81); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.4), inset 0 1px 0 rgba(255,255,255,0.1); border-radius: 24px; padding: 16px; display: flex; flex-direction: column; cursor: pointer; position: relative; overflow: hidden; align-items: center; }

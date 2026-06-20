@@ -182,25 +182,34 @@ function FilterRow({ coins, addCoins }) {
 }
 
 // ── HomeScreen ──────────────────────────────────────────────────────────────
-export default function HomeScreen({ coins, addCoins }) {
-  const [view, setView]     = useState('home')
-  const [streak, setStreak] = useState(() => {
-    const s = JSON.parse(localStorage.getItem('dostt_streak') || '{}')
-    return s.streak ?? 0
-  })
-  const [checkedIn, setCheckedIn] = useState(() => {
-    const s = JSON.parse(localStorage.getItem('dostt_streak') || '{}')
-    return s.lastCheckin === new Date().toDateString()
-  })
+export default function HomeScreen({ view, setView, coins, addCoins }) {
+  const [open, setOpen] = useState(false)
+  const [streak, setStreak] = useState(0)
+  const [checkedIn, setCheckedIn] = useState(false)
+  const [showStreakModal, setShowStreakModal] = useState(false)
 
-  const checkIn = () => {
+  useEffect(() => {
+    const s = JSON.parse(localStorage.getItem('dostt_streak') || '{}')
+    const today = new Date().toDateString()
+    if (s.lastCheckin === today) {
+      setCheckedIn(true)
+      setStreak(s.streak || 1)
+    } else {
+      setStreak(s.streak || 0)
+    }
+  }, [])
+
+  const checkIn = (e) => {
+    if (e) e.stopPropagation()
     if (checkedIn) return
     const today = new Date().toDateString()
-    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1)
+    const yesterday = new Date()
+    yesterday.setDate(yesterday.getDate() - 1)
+    
     const s = JSON.parse(localStorage.getItem('dostt_streak') || '{}')
     const cont = s.lastCheckin === yesterday.toDateString()
     const newStreak = cont ? streak + 1 : 1
-    const reward = newStreak >= 7 ? 50 : newStreak >= 3 ? 25 : 10
+    const reward = newStreak >= 7 ? 5 : 1
     localStorage.setItem('dostt_streak', JSON.stringify({ streak: newStreak, lastCheckin: today, coins: coins + reward }))
     setStreak(newStreak)
     setCheckedIn(true)
@@ -219,19 +228,19 @@ export default function HomeScreen({ coins, addCoins }) {
           <div className="quick-card qc-live" onClick={() => setView('live')}>
             <div className="qc-text" style={{ zIndex: 2 }}>
               <div className="qc-label">Video Streams</div>
-              <div className="qc-sub" style={{ whiteSpace: 'normal', paddingRight: '40px' }}>5 active streams</div>
+              <div className="qc-sub" style={{ whiteSpace: 'normal', paddingRight: '40px', color: 'rgba(255,255,255,0.8)' }}>5 active streams</div>
             </div>
             <div className="qc-icon" style={{ position: 'absolute', right: '-12px', top: '50%', transform: 'translateY(-50%)', zIndex: 1 }}>
-              <img src="/live-streaming.svg" alt="Video Streams" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
+              <img src="/live-streaming.svg" alt="Video Streams" style={{ width: '90px', height: '90px', objectFit: 'contain', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }} />
             </div>
           </div>
           <div className="quick-card qc-streak" onClick={checkIn}>
             <div className="qc-text" style={{ zIndex: 2 }}>
               <div className="qc-label">{streak} Day Streak</div>
-              <div className="qc-sub" style={{ whiteSpace: 'normal', paddingRight: '40px' }}>{checkedIn ? '✓ Checked in' : 'Tap to check in'}</div>
+              <div className="qc-sub" style={{ whiteSpace: 'normal', paddingRight: '40px', color: 'rgba(255,255,255,0.8)' }}>{checkedIn ? '✓ Checked in' : 'Tap to check in'}</div>
             </div>
-            <div className="qc-icon" style={{ position: 'absolute', right: '4px', top: '50%', transform: 'translateY(-50%)', zIndex: 1 }}>
-              <img src="/fire.svg" alt="Streak" style={{ width: '52px', height: '52px', objectFit: 'contain' }} />
+            <div className="qc-icon" onClick={(e) => { e.stopPropagation(); setShowStreakModal(true) }} style={{ position: 'absolute', right: '4px', top: '50%', transform: 'translateY(-50%)', zIndex: 3, cursor: 'pointer' }}>
+              <img src="/fire.svg" alt="Streak Info" style={{ width: '56px', height: '56px', objectFit: 'contain', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }} />
             </div>
           </div>
         </div>
@@ -283,6 +292,24 @@ export default function HomeScreen({ coins, addCoins }) {
           </div>
         ))}
       </div>
+
+      {showStreakModal && (
+        <div className="modal-backdrop" onClick={() => setShowStreakModal(false)}>
+          <div className="streak-modal" onClick={e => e.stopPropagation()}>
+            <img src="/fire.svg" alt="Streak" style={{ width: '64px', height: '64px', margin: '0 auto 12px', display: 'block', filter: 'drop-shadow(0 4px 10px rgba(245,158,11,0.5))' }} />
+            <h3 style={{ textAlign: 'center', margin: '0 0 16px', color: 'white', fontSize: '20px' }}>Streak Benefits</h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', marginBottom: '8px' }}>
+              <span style={{ color: 'rgba(255,255,255,0.9)' }}>Every Check-in</span>
+              <strong style={{ color: '#FCD34D', display: 'flex', alignItems: 'center', gap: '4px' }}>1 <GoldCoin size={14} /></strong>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', marginBottom: '20px' }}>
+              <span style={{ color: 'rgba(255,255,255,0.9)' }}>7 Days Streak</span>
+              <strong style={{ color: '#FCD34D', display: 'flex', alignItems: 'center', gap: '4px' }}>5 <GoldCoin size={14} /></strong>
+            </div>
+            <button className="btn-primary" onClick={() => setShowStreakModal(false)}>Awesome!</button>
+          </div>
+        </div>
+      )}
 
     </div>
   )
