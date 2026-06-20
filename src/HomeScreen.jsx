@@ -17,7 +17,7 @@ const LISTENERS = [
 const FEATURED = LISTENERS[1]
 
 // ── Spin Wheel ──────────────────────────────────────────────────────────────
-const PRIZES      = ['100 coins', 'better luck next time!', '10 coins', 'iPhone', '50 coins', 'Airpods']
+const PRIZES      = ['100 coins', 'Next Time!', '10 coins', 'iPhone', '50 coins', 'Airpods']
 const COLORS      = ['#7C3AED','#9F67FF','#4C1D95','#6D28D9','#8B5CF6','#7C3AED']
 
 function SpinWheelCard({ onWin }) {
@@ -98,13 +98,29 @@ function SpinWheelCard({ onWin }) {
                 return (
                   <g key={i}>
                     <path d={`M${r},${r} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i % COLORS.length]} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <text
-                      x={textX}
-                      y={textY}
-                      textAnchor="middle" dominantBaseline="middle"
-                      fontSize={p.length > 15 ? "7" : p.length > 9 ? "9" : "11"} fill="white" fontWeight="800"
-                      style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)', transform: `rotate(${textRot > 90 && textRot < 270 ? textRot + 180 : textRot}deg)`, transformOrigin: `${textX}px ${textY}px` }}
-                    >{p}</text>
+                    <g transform={`translate(${textX}, ${textY}) rotate(${textRot > 90 && textRot < 270 ? textRot + 180 : textRot})`}>
+                      {p.includes('coins') ? (
+                        <>
+                          <text x="-12" y="1" fill="white" fontSize="14" fontWeight="900" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{p.replace(' coins', '')}</text>
+                          <g transform="translate(2, -10)"><GoldCoin size={20} /></g>
+                        </>
+                      ) : p === 'Next Time!' ? (
+                        <>
+                          <image href="/Duck.png" x="-14" y="-18" width="28" height="28" />
+                          <text x="0" y="16" fill="white" fontSize="8" fontWeight="800" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>Next Time!</text>
+                        </>
+                      ) : p === 'iPhone' ? (
+                        <>
+                          <image href="/iPhone.png" x="-16" y="-16" width="32" height="32" />
+                        </>
+                      ) : p === 'Airpods' ? (
+                        <>
+                          <image href="/AirPods.png" x="-16" y="-16" width="32" height="32" />
+                        </>
+                      ) : (
+                        <text x="0" y="0" fill="white" fontSize="12" fontWeight="800" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{p}</text>
+                      )}
+                    </g>
                   </g>
                 )
               })}
