@@ -137,8 +137,17 @@ h3   { font-size: 15px; font-weight: 600; color: white; }
 @keyframes dropCoin { 0% { transform: translateY(-40px) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(160px) rotate(360deg); opacity: 0; } }
 
 /* First Call Free banner */
-.fcf-home-banner { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.2)); border: 1px solid rgba(124,58,237,0.3); padding: 16px; border-radius: 20px; cursor: pointer; margin-bottom: 10px; margin: 0 16px; }
-.fcf-left   { display: flex; flex-direction: column; gap: 4px; }
+.fcf-home-banner { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.2)); border: 1px solid rgba(124,58,237,0.3); padding: 16px; border-radius: 20px; margin-bottom: 10px; margin: 0 16px; overflow: hidden; position: relative; }
+.shimmer-banner::before {
+  content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+  animation: sweep 2.5s infinite;
+}
+@keyframes sweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+.fcf-left   { display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 1; }
 .fcf-tag    { font-size: 10px; font-weight: 800; color: var(--purple-bright); letter-spacing: 0.5px; }
 .fcf-title  { font-size: 16px; font-weight: 700; color: white; display: flex; align-items: center; gap: 6px; }
 .fcf-sub    { font-size: 12px; color: var(--text-muted); }
@@ -369,6 +378,13 @@ h3   { font-size: 15px; font-weight: 600; color: white; }
 .chat-inp:focus { border-color: var(--purple); }
 .chat-inp::placeholder { color: rgba(255,255,255,0.3); }
 .chat-heart { background: none; border: none; font-size: 22px; cursor: pointer; flex-shrink: 0; }
+.pulse-heart { animation: heartWiggle 1.5s ease-in-out infinite; }
+@keyframes heartWiggle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  10%, 30% { transform: scale(1.2) rotate(-10deg); }
+  20%, 40% { transform: scale(1.2) rotate(10deg); }
+  50% { transform: scale(1) rotate(0deg); }
+}
 .chat-send  { width: 36px; height: 36px; background: var(--purple); color: white; border: none; border-radius: 50%; font-size: 16px; cursor: pointer; flex-shrink: 0; }
 
 /* ══════════════════════════════════════════════════════════════

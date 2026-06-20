@@ -129,7 +129,7 @@ export default function LiveStream({ onBack }) {
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && sendMsg()}
           />
-          <button className="chat-heart" onClick={sendHeart}><Heart size={22} fill="currentColor" color="currentColor" /></button>
+          <button className="chat-heart pulse-heart" onClick={sendHeart}><Heart size={22} fill="#ef4444" color="#ef4444" /></button>
           <button className="chat-send" onClick={sendMsg}><Send size={16} /></button>
         </div>
       </div>

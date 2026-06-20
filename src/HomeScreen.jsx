@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Briefcase, Gift } from 'lucide-react'
 import LiveStream    from './LiveStream'
-import FirstCallFree from './FirstCallFree'
 import GoldCoin      from './GoldCoin'
 import LanguageFilter from './LanguageFilter'
 
@@ -171,7 +170,6 @@ export default function HomeScreen({ coins, addCoins }) {
   }
 
   if (view === 'live')      return <div className="sub-view"><LiveStream onBack={() => setView('home')} /></div>
-  if (view === 'free-call') return <div className="sub-view"><button className="back-dark" onClick={() => setView('home')}>← Back</button><FirstCallFree addCoins={addCoins} /></div>
 
   return (
     <div className="home-screen">
@@ -202,13 +200,12 @@ export default function HomeScreen({ coins, addCoins }) {
       </div>
 
       {/* ── First Call Free banner ── */}
-      <div className="fcf-home-banner" onClick={() => setView('free-call')}>
+      <div className="fcf-home-banner shimmer-banner">
         <div className="fcf-left">
           <span className="fcf-tag">FIRST TIME OFFER!</span>
           <div className="fcf-title">Your first call is FREE <Gift size={20} style={{ display: 'inline', marginLeft: 4, color: '#FCD34D' }} /></div>
           <div className="fcf-sub">No coins needed for your first match</div>
         </div>
-        <div className="fcf-arrow">›</div>
       </div>
 
       {/* ── Star Dostts ── */}

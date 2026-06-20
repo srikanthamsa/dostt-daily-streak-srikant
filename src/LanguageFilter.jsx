@@ -38,7 +38,6 @@ export default function LanguageFilter({ coins, spendCoins }) {
   const [saved, setSaved]     = useState(false)
   const [cooldown, setCooldown] = useState(0)
   const [unlocking, setUnlocking] = useState(false)
-  const [hasResetOnce, setHasResetOnce] = useState(stored.hasResetOnce || false)
 
   useEffect(() => {
     const tick = () => {
@@ -56,8 +55,8 @@ export default function LanguageFilter({ coins, spendCoins }) {
   const toggleLang = l => setLangs(prev => prev.includes(l) ? prev.filter(x => x !== l) : [...prev, l])
 
   const handleSave = () => {
-    if (cooldown > 0) return
-    localStorage.setItem('dostt_filter', JSON.stringify({ langs, state, city, lastChanged: Date.now(), hasResetOnce }))
+    if (cooldown > 0 && state !== '') return // allow save if just reverting to global
+    localStorage.setItem('dostt_filter', JSON.stringify({ langs, state, city, lastChanged: Date.now() }))
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }
@@ -121,23 +120,23 @@ export default function LanguageFilter({ coins, spendCoins }) {
             </div>
           </div>
           <div className="unlock-row">
-            {!hasResetOnce && (
+            {state && (
               <div style={{ marginBottom: '12px' }}>
                 <button 
                   className="unlock-btn" 
                   style={{ background: '#4F46E5', borderColor: '#4F46E5', color: 'white' }}
                   onClick={() => {
                     const s = getStored()
-                    localStorage.setItem('dostt_filter', JSON.stringify({ ...s, lastChanged: null, hasResetOnce: true }))
-                    setHasResetOnce(true)
-                    setCooldown(0)
+                    setState('')
+                    setCity('')
+                    localStorage.setItem('dostt_filter', JSON.stringify({ ...s, state: '', city: '' }))
                   }}
                 >
-                  <span style={{ display:'flex', alignItems:'center', gap:6, justifyContent:'center' }}>Reset for Free (1 Left)</span>
+                  <span style={{ display:'flex', alignItems:'center', gap:6, justifyContent:'center' }}>Reset to Global (Free)</span>
                 </button>
               </div>
             )}
-            <div className="unlock-note">Want to change location now?</div>
+            <div className="unlock-note">Want to select a new location?</div>
             <button
               className={`unlock-btn${coins < UNLOCK_COINS ? ' unlock-disabled' : ''}`}
               onClick={handleUnlock}
@@ -161,9 +160,9 @@ export default function LanguageFilter({ coins, spendCoins }) {
       <button
         className={`btn-primary${saved ? ' done' : ''}`}
         onClick={handleSave}
-        disabled={langs.length === 0 || locked}
+        disabled={langs.length === 0 || (locked && state !== '')}
       >
-        {saved ? '✓ Filters saved!' : locked ? 'Location locked · Language only' : 'Save Filters'}
+        {saved ? '✓ Filters saved!' : (locked && state !== '') ? 'Location locked · Language only' : 'Save Filters'}
       </button>
 
       <p className="metric-note">📊 Targets D7 retention — language match = longer calls = return</p>
