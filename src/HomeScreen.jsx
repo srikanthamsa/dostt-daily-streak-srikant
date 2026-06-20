@@ -51,7 +51,7 @@ function SpinWheelCard({ onWin }) {
   }
 
   const seg = 360 / PRIZES.length
-  const r   = 105
+  const r   = 80
 
   return (
     <div className="spin-card" onClick={spin}>
