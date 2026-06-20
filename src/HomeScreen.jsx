@@ -96,7 +96,7 @@ function SpinWheelCard({ onWin }) {
                   return (
                     <g key={i}>
                       <path d={`M${r},${r} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i % COLORS.length]} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <g transform={`translate(${textX}, ${textY}) rotate(${textRot > 90 && textRot < 270 ? textRot + 180 : textRot})`}>
+                      <g transform={`translate(${textX}, ${textY}) rotate(${textRot})`}>
                         {p.includes('coins') ? (
                           <>
                             <text x="-14" y="1" fill="white" fontSize="16" fontWeight="900" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{p.replace(' coins', '')}</text>
