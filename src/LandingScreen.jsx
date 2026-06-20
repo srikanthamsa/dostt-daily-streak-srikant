@@ -60,7 +60,7 @@ export default function LandingScreen({ onEnter }) {
   }
 
   return (
-    <div className="landing" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+    <div className="landing" style={{ overflowX: 'hidden' }}>
       {/* ── Hero ── */}
       <div className="landing-hero" style={{ flexShrink: 0 }}>
         <DosttLogo size={64} />
