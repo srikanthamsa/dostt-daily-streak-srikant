@@ -102,15 +102,16 @@ export default function LandingScreen({ onEnter }) {
             const scale = isActive ? 1 : 0.85
             const translateX = offset === 0 ? 0 : offset > 0 ? 40 : -40
             const rotateY = offset === 0 ? 0 : offset > 0 ? -15 : 15
+            const translateZ = isActive ? 20 : -60
             const zIndex = 10 - absOffset
-            const opacity = isActive ? 1 : 0.6
+            const opacity = isActive ? 1 : 0.4
 
             return (
               <div 
                 key={e.num} 
                 className={`le-card ${isActive ? 'active' : ''}`}
                 style={{
-                  transform: `translateX(${translateX}%) scale(${scale}) rotateY(${rotateY}deg)`,
+                  transform: `translateX(${translateX}%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`,
                   zIndex,
                   opacity,
                   position: 'absolute',
