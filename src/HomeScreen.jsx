@@ -17,9 +17,8 @@ const LISTENERS = [
 const FEATURED = LISTENERS[1]
 
 // ── Spin Wheel ──────────────────────────────────────────────────────────────
-const PRIZES      = ['10c', '25c', '50c', '100c', 'Free!', '2× XP', '30c', '5c']
-const PRIZE_LABELS = ['10 coins', '25 coins', '50 coins', '100 coins', 'Free Call!', '2× Streak', '30 coins', '5 coins']
-const COLORS      = ['#7C3AED','#9F67FF','#4C1D95','#6D28D9','#8B5CF6','#7C3AED','#5B21B6','#A78BFA']
+const PRIZES      = ['100 coins', 'better luck next time!', '10 coins', 'iPhone', '50 coins', 'Airpods']
+const COLORS      = ['#7C3AED','#9F67FF','#4C1D95','#6D28D9','#8B5CF6','#7C3AED']
 
 function SpinWheelCard({ onWin }) {
   const [angle, setAngle]       = useState(0)
@@ -45,9 +44,9 @@ function SpinWheelCard({ onWin }) {
     setAngle(target)
     setTimeout(() => {
       setSpinning(false)
-      setResult(PRIZE_LABELS[slot])
+      setResult(PRIZES[slot])
       setSpinsLeft(s => s - 1)
-      if (PRIZES[slot].endsWith('c')) onWin(parseInt(PRIZES[slot]))
+      if (PRIZES[slot].includes('coins')) onWin(parseInt(PRIZES[slot]))
     }, 3200)
   }
 
@@ -98,14 +97,14 @@ function SpinWheelCard({ onWin }) {
                 const textRot = (mid * 180 / Math.PI) + 90
                 return (
                   <g key={i}>
-                    <path d={`M${r},${r} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i]} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                    <path d={`M${r},${r} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i % COLORS.length]} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
                     <text
                       x={textX}
                       y={textY}
                       textAnchor="middle" dominantBaseline="middle"
-                      fontSize="9" fill="white" fontWeight="800"
+                      fontSize={p.length > 15 ? "7" : p.length > 9 ? "9" : "11"} fill="white" fontWeight="800"
                       style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)', transform: `rotate(${textRot > 90 && textRot < 270 ? textRot + 180 : textRot}deg)`, transformOrigin: `${textX}px ${textY}px` }}
-                    >{p.split(' ')[0]}</text>
+                    >{p}</text>
                   </g>
                 )
               })}
