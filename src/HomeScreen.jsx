@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Briefcase, Gift, Globe, ChevronDown, ChevronUp } from 'lucide-react'
+import { Briefcase, Gift, Globe, ChevronDown, ChevronUp, Gem } from 'lucide-react'
 import LiveStream    from './LiveStream'
 import GoldCoin      from './GoldCoin'
 import LanguageFilter from './LanguageFilter'
@@ -287,12 +287,12 @@ export default function HomeScreen({ coins, addCoins }) {
               </div>
               <div className="featured-ctas">
                 <button className="fcta-btn fcta-audio call-pill" onClick={() => handleCall('audio', l)}>
-                  <span style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-1px)' }}><GoldCoin size={14} /></span>
+                  <span style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-1px)' }}><Gem size={14} color="#38bdf8" fill="rgba(56, 189, 248, 0.2)" /></span>
                   <span style={{ margin: '0 2px', display: 'flex', alignItems: 'center' }}>1/min</span>
                   <span style={{ display: 'flex', alignItems: 'center', marginLeft: '2px', transform: 'translateY(1px)' }}><img src="/phone.png" style={{ width: '24px', height: '24px', objectFit: 'contain' }} alt="Call" /></span>
                 </button>
                 <button className="fcta-btn fcta-video call-pill" onClick={() => handleCall('video', l)}>
-                  <span style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-1px)' }}><GoldCoin size={14} /></span>
+                  <span style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-1px)' }}><Gem size={14} color="#38bdf8" fill="rgba(56, 189, 248, 0.2)" /></span>
                   <span style={{ margin: '0 2px', display: 'flex', alignItems: 'center' }}>6/min</span>
                   <span style={{ display: 'flex', alignItems: 'center', marginLeft: '2px', transform: 'translateY(1px)' }}><img src="/zoom.png" style={{ width: '24px', height: '24px', objectFit: 'contain' }} alt="Video" /></span>
                 </button>
