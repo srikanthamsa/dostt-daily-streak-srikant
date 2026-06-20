@@ -31,9 +31,17 @@ function SpinWheelCard({ onWin }) {
     if (spinning || spinsLeft === 0) return
     setResult(null)
     setSpinning(true)
-    const extra  = 360 * (5 + Math.floor(Math.random() * 4))
     const slot   = Math.floor(Math.random() * PRIZES.length)
-    const target = angle + extra + (slot * (360 / PRIZES.length))
+    const extra  = 360 * (5 + Math.floor(Math.random() * 4))
+    
+    // Calculate target angle to make segment 'slot' land at the top
+    const baseAngle = 360 - (slot * (360 / PRIZES.length) + (180 / PRIZES.length))
+    const currentMod = angle % 360
+    let diff = baseAngle - currentMod
+    if (diff <= 0) diff += 360
+    
+    const target = angle + extra + diff
+
     setAngle(target)
     setTimeout(() => {
       setSpinning(false)
@@ -44,7 +52,7 @@ function SpinWheelCard({ onWin }) {
   }
 
   const seg = 360 / PRIZES.length
-  const r   = 60
+  const r   = 85
 
   return (
     <div className="spin-card" onClick={spin}>
@@ -52,9 +60,11 @@ function SpinWheelCard({ onWin }) {
       <div className="coin-drop" />
       <div className="coin-drop" />
       <div className="coin-drop" />
+      <div className="coin-drop" />
+      <div className="coin-drop" />
       <div className="spin-card-content">
         <div className="spin-area">
-          <div className="spin-pointer">▼</div>
+          <div className="spin-pointer"></div>
           <svg
             width={r * 2 + 30} height={r * 2 + 30}
             viewBox={`0 0 ${r*2+30} ${r*2+30}`}

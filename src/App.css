@@ -133,12 +133,14 @@ h3   { font-size: 15px; font-weight: 600; color: white; }
 .spin-cta    { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); z-index: 1; margin-top: 8px; }
 .spin-cta.disabled { color: rgba(255,255,255,0.4); }
 
-.coin-drop { position: absolute; width: 14px; height: 14px; background: radial-gradient(circle, #FCD34D, #D97706); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4); opacity: 0; animation: dropCoin linear infinite; z-index: 0; }
-.coin-drop:nth-child(1) { left: 15%; animation-duration: 2.2s; animation-delay: 0s; }
-.coin-drop:nth-child(2) { left: 50%; animation-duration: 2.5s; animation-delay: 0.5s; width: 10px; height: 10px; }
-.coin-drop:nth-child(3) { left: 80%; animation-duration: 2s; animation-delay: 1.2s; }
-.coin-drop:nth-child(4) { left: 30%; animation-duration: 2.7s; animation-delay: 0.8s; width: 18px; height: 18px; }
-@keyframes dropCoin { 0% { transform: translateY(-40px) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(160px) rotate(360deg); opacity: 0; } }
+.coin-drop { position: absolute; width: 14px; height: 14px; background: radial-gradient(circle at 30% 30%, #FCD34D, #D97706); border-radius: 50%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.4); opacity: 0; animation: dropCoin linear infinite; z-index: 0; }
+.coin-drop:nth-child(1) { left: 10%; animation-duration: 2.5s; animation-delay: 0.1s; width: 20px; height: 20px; }
+.coin-drop:nth-child(2) { left: 45%; animation-duration: 3.1s; animation-delay: 0.8s; width: 14px; height: 14px; }
+.coin-drop:nth-child(3) { left: 85%; animation-duration: 2.2s; animation-delay: 1.5s; width: 24px; height: 24px; }
+.coin-drop:nth-child(4) { left: 25%; animation-duration: 2.8s; animation-delay: 0.4s; width: 28px; height: 28px; }
+.coin-drop:nth-child(5) { left: 65%; animation-duration: 2.6s; animation-delay: 1.1s; width: 18px; height: 18px; }
+.coin-drop:nth-child(6) { left: 95%; animation-duration: 3.0s; animation-delay: 0.3s; width: 12px; height: 12px; }
+@keyframes dropCoin { 0% { transform: translateY(-40px) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(220px) rotate(360deg); opacity: 0; } }
 
 /* First Call Free banner */
 .fcf-home-banner { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.2)); border: 1px solid rgba(124,58,237,0.3); padding: 16px; border-radius: 20px; margin-bottom: 10px; margin: 0 16px; overflow: hidden; position: relative; }
