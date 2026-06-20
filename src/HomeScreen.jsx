@@ -51,7 +51,7 @@ function SpinWheelCard({ onWin }) {
   }
 
   const seg = 360 / PRIZES.length
-  const r   = 80
+  const r   = 88
 
   return (
     <div className="spin-card" onClick={spin}>
@@ -104,8 +104,7 @@ function SpinWheelCard({ onWin }) {
                           </>
                         ) : p === 'Next Time!' ? (
                           <>
-                            <image href="/Duck.png" x="-16" y="-20" width="32" height="32" />
-                            <text x="0" y="18" fill="white" fontSize="10" fontWeight="800" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>Next Time!</text>
+                            <image href="/Duck.png" x="-16" y="-16" width="32" height="32" />
                           </>
                         ) : p === 'iPhone' ? (
                           <>
