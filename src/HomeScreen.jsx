@@ -6,12 +6,12 @@ import LanguageFilter from './LanguageFilter'
 
 // ── Listeners data ──────────────────────────────────────────────────────────
 const LISTENERS = [
-  { id: 1, name: 'yogitaaa',  tag: 'Life Coach',    avatar: '/avatars/avatar_orange_1781937749343.png', bg: 'linear-gradient(160deg,#c4a882,#a0785a)', online: true  },
-  { id: 2, name: 'riyaa8765', tag: 'Relationship',  avatar: '/avatars/avatar_blue_1781937765422.png', bg: 'linear-gradient(160deg,#b8a4d4,#7c5cbf)', online: true,
+  { id: 1, name: 'yogitaaa',  tag: 'Life Coach',    avatar: '/avatars/avatar_orange_1781937749343.jpg', bg: 'linear-gradient(160deg,#c4a882,#a0785a)', online: true  },
+  { id: 2, name: 'riyaa8765', tag: 'Relationship',  avatar: '/avatars/avatar_blue_1781937765422.jpg', bg: 'linear-gradient(160deg,#b8a4d4,#7c5cbf)', online: true,
     categories: ['Family & Relationships', 'Emotional Support', 'Films & Music', 'Childhood Memories'] },
-  { id: 3, name: 'urshi19',   tag: 'Motivator',     avatar: '/avatars/avatar_red_1781937779884.png', bg: 'linear-gradient(160deg,#a8c4a0,#6a9e62)', online: true  },
-  { id: 4, name: 'kavya_k',   tag: 'Mental Health', avatar: '/avatars/avatar_purple_1781937797935.png', bg: 'linear-gradient(160deg,#f4a460,#cd853f)', online: false },
-  { id: 5, name: 'priya_s',   tag: 'Career Guide',  avatar: '/avatars/avatar_blue_1781937765422.png', em: <Briefcase size={20} color="white" />, bg: 'linear-gradient(160deg,#87ceeb,#4682b4)', online: true  },
+  { id: 3, name: 'urshi19',   tag: 'Motivator',     avatar: '/avatars/avatar_red_1781937779884.jpg', bg: 'linear-gradient(160deg,#a8c4a0,#6a9e62)', online: true  },
+  { id: 4, name: 'kavya_k',   tag: 'Mental Health', avatar: '/avatars/avatar_purple_1781937797935.jpg', bg: 'linear-gradient(160deg,#f4a460,#cd853f)', online: false },
+  { id: 5, name: 'priya_s',   tag: 'Career Guide',  avatar: '/avatars/avatar_blue_1781937765422.jpg', em: <Briefcase size={20} color="white" />, bg: 'linear-gradient(160deg,#87ceeb,#4682b4)', online: true  },
 ]
 
 const FEATURED = LISTENERS[1]
@@ -276,7 +276,7 @@ export default function HomeScreen({ coins, addCoins }) {
           <div key={user.id} className="featured-wrap" style={{ margin: '0 16px' }}>
             <div className="featured-card" style={!user.avatar ? { background: user.bg } : {}}>
               <div className="featured-badge">⭐ Top Rated</div>
-              {user.avatar ? <img src={user.avatar} alt={user.name} className="featured-av-img" /> : <div className="featured-em">{user.em}</div>}
+              {user.avatar ? <img src={user.avatar} alt={user.name} className="featured-av-img" fetchPriority="high" /> : <div className="featured-em">{user.em}</div>}
             </div>
             <div className="featured-info">
               <div className="featured-info-name">{user.name}</div>
