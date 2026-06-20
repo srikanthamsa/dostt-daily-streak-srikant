@@ -51,98 +51,104 @@ function SpinWheelCard({ onWin }) {
   }
 
   const seg = 360 / PRIZES.length
-  const r   = 85
+  const r   = 105
 
   return (
-    <div className="spin-card" onClick={spin}>
-      <div className="coin-drop" />
-      <div className="coin-drop" />
-      <div className="coin-drop" />
-      <div className="coin-drop" />
-      <div className="coin-drop" />
-      <div className="coin-drop" />
+    <div className="spin-card">
       <div className="spin-card-content">
-        <div className="spin-area">
-          <div className="spin-pointer"></div>
-          <svg
-            width={r * 2 + 30} height={r * 2 + 30}
-            viewBox={`0 0 ${r*2+30} ${r*2+30}`}
-            style={{ transform: `rotate(${angle}deg)`, transition: spinning ? 'transform 3.2s cubic-bezier(0.2,0,0.1,1)' : 'none', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }}
-          >
-            <defs>
-              <radialGradient id="wheel-glow" cx="50%" cy="50%" r="50%">
-                <stop offset="80%" stopColor="transparent" />
-                <stop offset="100%" stopColor="rgba(0,0,0,0.6)" />
-              </radialGradient>
-              <linearGradient id="center-pin" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#fde68a" />
-                <stop offset="50%" stopColor="#f59e0b" />
-                <stop offset="100%" stopColor="#b45309" />
-              </linearGradient>
-              <filter id="inner-shadow">
-                <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.6" />
-              </filter>
-            </defs>
-            <g transform="translate(15,15)">
-              {PRIZES.map((p, i) => {
-                const a1 = (i * seg - 90) * (Math.PI / 180)
-                const a2 = ((i + 1) * seg - 90) * (Math.PI / 180)
-                const x1 = r + r * Math.cos(a1)
-                const y1 = r + r * Math.sin(a1)
-                const x2 = r + r * Math.cos(a2)
-                const y2 = r + r * Math.sin(a2)
-                const mid = (a1 + a2) / 2
-                const textX = r + (r * 0.65) * Math.cos(mid)
-                const textY = r + (r * 0.65) * Math.sin(mid)
-                const textRot = (mid * 180 / Math.PI) + 90
-                return (
-                  <g key={i}>
-                    <path d={`M${r},${r} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i % COLORS.length]} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <g transform={`translate(${textX}, ${textY}) rotate(${textRot > 90 && textRot < 270 ? textRot + 180 : textRot})`}>
-                      {p.includes('coins') ? (
-                        <>
-                          <text x="-12" y="1" fill="white" fontSize="14" fontWeight="900" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{p.replace(' coins', '')}</text>
-                          <g transform="translate(2, -10)"><GoldCoin size={20} /></g>
-                        </>
-                      ) : p === 'Next Time!' ? (
-                        <>
-                          <image href="/Duck.png" x="-14" y="-18" width="28" height="28" />
-                          <text x="0" y="16" fill="white" fontSize="8" fontWeight="800" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>Next Time!</text>
-                        </>
-                      ) : p === 'iPhone' ? (
-                        <>
-                          <image href="/iPhone.png" x="-16" y="-16" width="32" height="32" />
-                        </>
-                      ) : p === 'Airpods' ? (
-                        <>
-                          <image href="/AirPods.png" x="-16" y="-16" width="32" height="32" />
-                        </>
-                      ) : (
-                        <text x="0" y="0" fill="white" fontSize="12" fontWeight="800" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{p}</text>
-                      )}
+        <div className="spin-left-col">
+          {/* SVG Wheel */}
+          <div className="spin-area">
+            <div className="spin-pointer"></div>
+            <svg width={r * 2 + 30} height={r * 2 + 30} viewBox={`0 0 ${r * 2 + 30} ${r * 2 + 30}`}
+                 style={{ transform: `rotate(${angle}deg)`, transition: spinning ? 'transform 3.2s cubic-bezier(0.1, 0, 0.1, 1)' : 'none', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }}>
+              <defs>
+                <radialGradient id="wheel-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="80%" stopColor="transparent" />
+                  <stop offset="100%" stopColor="rgba(0,0,0,0.6)" />
+                </radialGradient>
+                <linearGradient id="center-pin" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#fde047" />
+                  <stop offset="100%" stopColor="#b45309" />
+                </linearGradient>
+                <filter id="inner-shadow">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.6" />
+                </filter>
+              </defs>
+              <g transform="translate(15,15)">
+                {PRIZES.map((p, i) => {
+                  const a1 = (i * seg - 90) * (Math.PI / 180)
+                  const a2 = ((i + 1) * seg - 90) * (Math.PI / 180)
+                  const x1 = r + r * Math.cos(a1)
+                  const y1 = r + r * Math.sin(a1)
+                  const x2 = r + r * Math.cos(a2)
+                  const y2 = r + r * Math.sin(a2)
+                  const mid = (a1 + a2) / 2
+                  const textX = r + (r * 0.65) * Math.cos(mid)
+                  const textY = r + (r * 0.65) * Math.sin(mid)
+                  const textRot = (mid * 180 / Math.PI) + 90
+                  return (
+                    <g key={i}>
+                      <path d={`M${r},${r} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={COLORS[i % COLORS.length]} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                      <g transform={`translate(${textX}, ${textY}) rotate(${textRot > 90 && textRot < 270 ? textRot + 180 : textRot})`}>
+                        {p.includes('coins') ? (
+                          <>
+                            <text x="-14" y="1" fill="white" fontSize="16" fontWeight="900" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{p.replace(' coins', '')}</text>
+                            <g transform="translate(4, -12)"><GoldCoin size={24} /></g>
+                          </>
+                        ) : p === 'Next Time!' ? (
+                          <>
+                            <image href="/Duck.png" x="-16" y="-20" width="32" height="32" />
+                            <text x="0" y="18" fill="white" fontSize="10" fontWeight="800" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>Next Time!</text>
+                          </>
+                        ) : p === 'iPhone' ? (
+                          <>
+                            <image href="/iPhone.png" x="-20" y="-20" width="40" height="40" />
+                          </>
+                        ) : p === 'Airpods' ? (
+                          <>
+                            <image href="/AirPods.png" x="-20" y="-20" width="40" height="40" />
+                          </>
+                        ) : (
+                          <text x="0" y="0" fill="white" fontSize="14" fontWeight="800" dominantBaseline="middle" textAnchor="middle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>{p}</text>
+                        )}
+                      </g>
                     </g>
-                  </g>
-                )
-              })}
-              <circle cx={r} cy={r} r={r} fill="url(#wheel-glow)" pointerEvents="none" />
-              <circle cx={r} cy={r} r={r} fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="4" />
-              <circle cx={r} cy={r} r="14" fill="url(#center-pin)" filter="url(#inner-shadow)" />
-              <circle cx={r} cy={r} r="5" fill="#78350f" />
-            </g>
-          </svg>
+                  )
+                })}
+                <circle cx={r} cy={r} r={r} fill="url(#wheel-glow)" pointerEvents="none" />
+                <circle cx={r} cy={r} r={r} fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="4" />
+                <circle cx={r} cy={r} r="16" fill="url(#center-pin)" filter="url(#inner-shadow)" />
+              </g>
+            </svg>
+          </div>
         </div>
 
         <div className="spin-right-col">
           <div className="spin-header">
-            <span className="spin-title">Spin to Win!</span>
-            <span className="spins-left">{spinsLeft} free spins</span>
+            <div className="spin-title">Spin to Win!</div>
+            {spinsLeft > 0 ? (
+              <div className="spin-subtitle" style={{ color: '#fcd34d', fontSize: 13, fontWeight: 600 }}>{spinsLeft} free spins</div>
+            ) : (
+              <div className="spin-subtitle" style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>0 spins left</div>
+            )}
           </div>
+          
           {result && (
-            <div className="spin-result">
-              <span>You won</span>
-              <strong style={{ display:'flex', alignItems:'center', gap:5 }}>
-                {result.includes('coin') && <GoldCoin size={20} />}{result}
-              </strong>
+            <div className="spin-result slide-up">
+              {result === 'Next Time!' ? (
+                <>
+                  <span>Oops!</span>
+                  <strong>Better luck next time!</strong>
+                </>
+              ) : (
+                <>
+                  <span>You won</span>
+                  <strong style={{ display:'flex', alignItems:'center', gap:5 }}>
+                    {result.includes('coins') && <GoldCoin size={20} />}{result}
+                  </strong>
+                </>
+              )}
             </div>
           )}
           {spinsLeft === 0
