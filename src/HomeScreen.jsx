@@ -54,7 +54,13 @@ function SpinWheelCard({ onWin }) {
   const r   = 105
 
   return (
-    <div className="spin-card">
+    <div className="spin-card" onClick={spin}>
+      <div className="coin-drop" />
+      <div className="coin-drop" />
+      <div className="coin-drop" />
+      <div className="coin-drop" />
+      <div className="coin-drop" />
+      <div className="coin-drop" />
       <div className="spin-card-content">
         <div className="spin-left-col">
           {/* SVG Wheel */}
